@@ -21,7 +21,7 @@ We use datasets for ML, but we do NOT commit large datasets to GitHub.
    git checkout -b feature/short-description
 3) Each person uses their own notebook file:
    notebooks/gavin_eda.ipynb
-   notebooks/alex_baseline.ipynb
+   notebooks/owen_baseline.ipynb
    etc.
 
 ## Basic workflow (every time)
