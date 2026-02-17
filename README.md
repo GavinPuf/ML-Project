@@ -8,8 +8,6 @@ This GitHub repo is for collaboration (code + notebooks). The graded deliverable
 - `notebooks/` = exploration/EDA/experiments (each person keeps their own notebook file)
 - `reports/` = final writeup + figures that appear in the report
 - `data/` = NOT stored in GitHub (see below)
-- `models/` = optional small saved artifacts (avoid large binaries)
-- `tests/` = optional (only if we add tests)
 
 ## Data policy (IMPORTANT)
 We use datasets for ML, but we do NOT commit large datasets to GitHub.
