@@ -1,51 +1,68 @@
-cat > README.md <<'EOF'
-# ML Class Project (Group Repo)
+# ML Project — NBA Pre-Game Betting Predictions
 
-This GitHub repo is for collaboration (code + notebooks). The graded deliverable is the final report in `reports/` (or wherever we keep it).
+This repo is a beginner-friendly, reproducible ML pipeline for **NBA pre-game predictions** using:
+- Historical NBA stats (Kaggle: historical box scores + team stats)
+- Sportsbook odds (The Odds API)
 
-## What goes where (DO THIS)
-- `src/` = shared reusable code (data loading, preprocessing, models, evaluation)
-- `notebooks/` = exploration/EDA/experiments (each person keeps their own notebook file)
-- `reports/` = final writeup + figures that appear in the report
-- `data/` = NOT stored in GitHub (see below)
+**Pre-game only rule:** every feature must be known *before tipoff* to avoid leakage.
 
-## Data policy (IMPORTANT)
-We use datasets for ML, but we do NOT commit large datasets to GitHub.
-- Data lives in shared storage (Drive/Kaggle/etc.)
-- Each person downloads data locally into `data/raw/` and/or `data/processed/`
-- `data/` should stay ignored by git (except README / placeholders)
+## What we’re predicting
 
-## Collaboration rules (prevents headaches)
-1) Do NOT push directly to `main`.
-2) Always make a branch for your work:
-   git checkout -b feature/short-description
-3) Each person uses their own notebook file:
-   notebooks/gavin_eda.ipynb
-   notebooks/owen_baseline.ipynb
-   etc.
+Our primary target is the **final score** of each game. By modelling the final points scored by each team, we implicitly capture both the moneyline outcome (who wins) and the spread (point differential). We'll start with regression models for home and away scores and derive moneyline and spread probabilities from these predictions. Additional targets such as total points can be explored as extensions.
 
-## Basic workflow (every time)
-1) Get latest:
-   git pull origin main
+## Repo structure
 
-2) Create branch:
-   git checkout -b feature/short-description
+- `src/` — reusable code (loading, cleaning, feature engineering, modelling, evaluation)
+- `notebooks/` — EDA and experiments (each person keeps their own notebook file)
+- `reports/` — final report and figures
+- `data/` — not committed (see `data/README.md` for guidance)
 
-3) Work, then commit:
-   git add .
-   git commit -m "Clear description of change"
+## Data sources
 
-4) Push branch:
-   git push -u origin feature/short-description
+### Historical stats (Kaggle)
 
-5) Open a Pull Request on GitHub and merge after 1 teammate reviews.
+Dataset: *Historical NBA Data and Player Box Scores* (1947–present) — includes player and team box stats and advanced metrics. We'll primarily use team-level tables such as `TeamStatisticsAdvanced.csv`, but may join additional tables as needed.
 
-## Quick start (kept generic)
-Create a venv:
-  python -m venv .venv
-  source .venv/bin/activate   # macOS/Linux
-  .venv\Scripts\activate      # Windows
+### Sportsbook odds (The Odds API)
 
-Install deps (we will fill this in later):
-  pip install -r requirements.txt
-EOF
+We use The Odds API v4 endpoints to pull upcoming NBA games and odds. We'll focus on the `h2h` (moneyline) and `spreads` markets for sportsbooks in the U.S. region. The API has request limits; we'll cache responses and combine market queries where possible. See `data/README.md` for setup instructions.
+
+## Quickstart (local)
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/GavinPuf/ML-Project.git
+   cd ML-Project
+   ```
+
+2. Create and activate a Python virtual environment.
+
+   **macOS/Linux**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+
+   **Windows (PowerShell)**
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+3. Install requirements:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Download the Kaggle dataset and place it in `data/raw/kaggle/`. Configure your Odds API key by creating a `.env` file in the project root (see `data/README.md`).
+
+## Collaboration workflow
+
+- **Never commit directly to `main`.** Always create a branch: `git checkout -b feature/<short-name>` or `docs/<short-name>`.
+- **Open a Pull Request** and have at least one teammate review before merging.
+- Each person owns their notebook file under `notebooks/`. Avoid editing someone else’s notebook without coordination.
+- For step-by-step Git and GitHub instructions, see `docs/GITHUB_FOR_BEGINNERS.md`. For contribution conventions, see `CONTRIBUTING.md`.
+
+## Reproducibility goal
+
+The deliverable is the final report, but we aim for full reproducibility: cloning the repo, downloading the data and running our pipeline should reproduce the key analyses and figures used in the report.
