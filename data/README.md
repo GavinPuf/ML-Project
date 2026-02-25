@@ -1,12 +1,12 @@
 # Data
 
 ## IMPORTANT
-We do **not** commit datasets to GitHub.
+WeWe do **not** commit datasets to GitHub.
 
 Folder layout:
 - `data/raw/` — original downloads (Kaggle CSVs, Odds API raw JSON)
 - `data/processed/` — cleaned/merged tables used for modeling
-- `dataccache/` — cached API responses (timestamped)
+- `data/cache/` — cached API responses (timestamped)
 
 ## Kaggle dataset
 Download the Kaggle dataset ("Historical NBA Data and Player Box Scores") and place its CSV files into `data/raw/kaggle/`. We primarily use `TeamStatisticsAdvanced.csv` plus supporting tables as needed.
