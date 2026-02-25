@@ -1,8 +1,7 @@
 # Data
 
 ## IMPORTANT
-WeWe do **not** commit datasets to GitHub.
-
+We do **not** commit datasets to GitHub.
 Folder layout:
 - `data/raw/` — original downloads (Kaggle CSVs, Odds API raw JSON)
 - `data/processed/` — cleaned/merged tables used for modeling
